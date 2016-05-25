@@ -1,6 +1,31 @@
 <?php
 
-         ?>
+ $isLogin = false;
+ $isPassword = false;
+        if(CheckLogin($_POST['username']) == true)
+        {
+               echo "We already have that username, please write another";
+        }
+        else
+       {
+          $isLogin = true;
+       }
+        if(strcmp($_POST['password'], $_POST['repassword']) == 0)
+        {
+             $isPassword = true;
+            echo "Passwords are the same"; 
+        }
+        else
+        {
+            echo "Passwords are not the same"; 
+        }
+
+        if($isLogin == true && $isPassword == true)
+        {
+            NewUser($_POST['username'], $_POST['password']);
+        }
+            
+?>
    
     <html>
    <title>
@@ -36,7 +61,7 @@
         
         <div class="input-group">
   <span class="input-group-addon">Password Again :</span>
-  <input type="text" class="form-control" placeholder="********" aria-label="Amount (to the nearest dollar)">
+  <input type="text" class="form-control" placeholder="********" aria-label="Amount (to the nearest dollar)" name="repassword">
     
 </div>
      <button type="submit">

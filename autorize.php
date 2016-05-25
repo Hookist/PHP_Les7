@@ -17,6 +17,7 @@ $isEst = false;
       {
         echo "zachlo!";
         $isEst = true;
+        header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
       }
     else
     {
@@ -29,18 +30,8 @@ $isEst = false;
    if($isEst)
    {
        echo "Est Takoy";
- 
-       $title = $mainPage['name'];
-       echo $title;
-            $link = $mainPage['link'];
-       
-           $user = array(
-        "username" => $_POST['username'],
-        "password" => $_POST['password']
-        
-        );
-    
-    
+          header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
+
    }
     else
     {

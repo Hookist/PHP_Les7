@@ -10,7 +10,7 @@
 
   $mainPage = array(
         "name" => "MainForm",
-                "link" => "index2.php");
+                "link" => "mainform.php");
   $loginPage = array(
       "name" => "LoginForm",
       "link" => "login.php"

@@ -1,8 +1,5 @@
 <?php
-    function doRegister($login, $password)
-    {
-        if(CheckLogin($login));
-    }
+
 
     function CheckLogin($login)
     {
@@ -25,9 +22,9 @@
     {
         $link = mysqli_connect("127.0.0.1","root", "", "mydb");
 
-        echo "\n login : " . $login;
-        echo "\n password : " . $password;
-        $res = mysqli_query($link, "SELECT * FROM `User` WHERE UserName= '$login' AND Password = '$password';");
+        echo " login : " . $login . "<br>";
+        echo " password : " . $password . "<br>";
+        $res = mysqli_query($link, "SELECT * FROM `User` WHERE `UserName` = '$login' AND `Password` = '$password';");
         
         echo "Numbers of column : " . mysqli_num_rows($res);
         if(mysqli_num_rows($res) > 0)
@@ -36,6 +33,57 @@
         }
         else 
             return false;
+    }
+    
+
+    function CheckString($someString)
+    {
+        if(strripos($someString, " ") != false)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+    
+    function NewUser($username, $password)
+    {
+         $link = mysqli_connect("127.0.0.1","root", "", "mydb");
+         echo "New username : " . $username . "<br>";
+         echo "New password : " . $password . "<br>";
+        
+            $res = mysqli_query($link, "INSERT INTO `user` (`UserName`, `Password`)
+VALUES ('$username', '$password');");
+        
+        if($res == true)
+        {
+            echo "Dobavilosia " . "<br>";
+        }
+        else
+             echo " Ne dobavilosia " . "<br>";
+
+    }
+
+    function getMenu()
+    {
+         $link = mysqli_connect("127.0.0.1","root", "", "mydb");
+         $res = mysqli_query($link, "SELECT * FROM `page`;");
+         if($res != false)
+         {
+             $arr = mysqli_fetch_all($res, MYSQLI_ASSOC);
+             return $arr;
+         }
+    }
+
+    function getPageById($id)
+    {
+         $link = mysqli_connect("127.0.0.1","root", "", "mydb");
+         $res = mysqli_query($link, "SELECT * FROM `page` WHERE `id` = '$id';");
+         if($res != false)
+         {
+             $arr = mysqli_fetch_all($res, MYSQLI_ASSOC);
+             return $arr;
+         }
     }
     
 
