@@ -1,4 +1,3 @@
-
 <?php
   //$curUser = $_COOKIE['user'];
   //$_POST['username'] = $curUser['username'];
@@ -54,25 +53,32 @@ $isEst = false;
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
        
 
-       
+        <link href="mystylesheet.css" rel="stylesheet">
        
    </head>
+            
+            
     <body>
-       <form action="" method="post">
+    
+      <div class = "container">
+	<div class="wrapper">  
+        
+       <form action="" method="post" name="Login_Form" class="form-signin">
+            <h3 class="form-signin-heading">Welcome Back! Please Sign In</h3>
+            <hr class="colorgraph"/><br>
         <div class="input-group">
-  <span class="input-group-addon" id="basic-addon1">UserName:</span>
-  <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="username">
+  
+  <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" name="username" required="" autofocus="">
 </div>
 
 
 
 <div class="input-group">
-  <span class="input-group-addon">Password :</span>
-  <input type="text" class="form-control" placeholder="********" aria-label="Amount (to the nearest dollar)" name="password">
-  <span class="input-group-addon">need more then 6 symbols</span>
+  <input type="password" class="form-control" placeholder="Password" aria-label="Amount (to the nearest dollar)" name="password" required="">
+
 </div>
 
-     <button type="submit">
+     <button class="btn btn-lg btn-primary btn-block" type="submit" name="Submit">
        AUTORIZE
         
      </button>
@@ -88,7 +94,8 @@ $isEst = false;
                  
          </div>
      </form>
-        
+          </div>
+        </div>
 
         
       </body>
