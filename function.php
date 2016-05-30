@@ -86,7 +86,14 @@ VALUES ('$username', '$password');");
          }
     }
     
-
+    function addMenuItem($post)
+    {
+        $link = mysqli_connect("127.0.0.1", "root", "", "mydb");
+        
+        $q = mysqli_query($link, "INSERT INTO `page`(`name`, `link`)  values('${post['name']}', '${post['link']}')");
+         return $q;
+    }
+       
     
     
 ?>

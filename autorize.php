@@ -9,6 +9,11 @@
    require('pages.php');
 
 
+    $pageId = $_GET['id'];
+    $id = isset($_GET['id']?$_GET['id']:0);
+    $page = getPageById($id);
+    $menu = getMenu();
+
 $isEst = false;
 
 
@@ -16,7 +21,7 @@ $isEst = false;
       {
         echo "zachlo!";
         $isEst = true;
-        header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
+        //header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
       }
     else
     {
@@ -29,7 +34,13 @@ $isEst = false;
    if($isEst)
    {
        echo "Est Takoy";
-          header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
+       session_start();
+       if($_SESSION['isAutorized'] != 1)
+       {
+           include "login.php";
+           die();
+       }
+//          header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
 
    }
     else
@@ -89,9 +100,28 @@ $isEst = false;
              <h1>
                  <?=$title?> 
              </h1>
-            
-           
-                 
+              <div id = "menu">
+            <?php
+                foreach($menu as $m):?>
+            <li>
+                <a href="/index.php?id="<?=$m['id']?>>
+                <?=$m['name']?> 
+                </a>
+            </li>
+            <?php endforeach: ?>
+            </div>
+            <div id='content'>
+                <?php
+                    if($id == 0): ?>
+                   
+                    
+                <?php 
+                    else:
+                        include"pages/" . $page['link'];
+                    
+                    endif:
+                    ?>
+            </div> 
          </div>
      </form>
           </div>
