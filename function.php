@@ -5,7 +5,6 @@
     {
         $res = doQuery("SELECT `UserName` FROM `User` WHERE `UserName`= '$login';");
 
-        var_dump((mysqli_num_rows($res)));
         $count = (mysqli_num_rows($res));
         if($count > 0)
         {
@@ -68,9 +67,7 @@ VALUES ('$username', '$password');");
          if($res != false)
          {
              echo "zachlo";
-             var_dump($res);
              $arr = mysqli_fetch_all($res, MYSQLI_NUM);
-             var_dump($arr);
              return $arr;
          }
     }
@@ -78,9 +75,9 @@ VALUES ('$username', '$password');");
     function getPageById($id)
     {
          $res = doQuery("SELECT * FROM `pages` WHERE `id` = '$id';");
-         if($res != false)
+         if($res)
          {
-             $arr = mysqli_fetch_all($res, MYSQLI_ASSOC);
+             $arr = mysqli_fetch_assoc($res);
              return $arr;
          }
     }
@@ -101,9 +98,8 @@ VALUES ('$username', '$password');");
     function editMenuItem($post)
     {
         return doQuery("UPDATE `pages`
-                        SET `name` = '".$post['name']."', `link` = '".$post['link']."'
-                        WHERE `id` = '".$post['id']."'; ");
-        
+                        SET `name` = '" . $post['name'] ."', `link` = '".$post['link']."'
+                        WHERE `id` = '".$post['id']."'; "); 
     }
 
     function doQuery($query)
@@ -113,6 +109,20 @@ VALUES ('$username', '$password');");
         $q = mysqli_query($link, $query);
          return $q;
     }
+
+    function addPost($post)
+    {
+        return doQuery("INSERT INTO `post` (`PostName`, `User_id`) 
+                        VALUES('". $post['postName'] ."', '". $post['userId'] ."')");
+    }  
+
+    function deletePost($post)
+    {
+         return doQuery(" ");
+    }
+
+    
+
     
     
 ?>

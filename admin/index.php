@@ -14,19 +14,29 @@
         switch($_POST['action'])
         {
             case "add" :
-            addMenuItem($_POST);
-            break;
+                addMenuItem($_POST);
+                break;
             case "delete" :
-            //$_POST['id'] = $("#menu_to_delete option:selected").text();
-            $_POST['id'] = $_POST['menu_to_delete']; 
-            deleteMenuItem($_POST);
+                //$_POST['id'] = $("#menu_to_delete option:selected").text();
+
+                $_POST['id'] = $_POST['menu_to_delete']; 
+                deleteMenuItem($_POST);
             break;
+            case "curToEdit" :
+                if(!isset($id))
+                {
+
+                    $id = $_POST['menu_to_edit'];
+                    $curr = getPageById($id);
+                    break;
+                }
+                echo "ia v curToEdit";
             case "edit" :
-            $_POST['id'] = $_POST['menu_to_edit'];
-            $_POST['name'] = $_POST['newname'];
-            $_POST['link'] = $_POST['newlink'];     
-            editMenuItem($_POST);
-            break;
+                $_POST['name'] = $_POST['newname'];
+                $_POST['link'] = $_POST['newlink'];     
+
+                editMenuItem($_POST);
+                break;
         }
     }
 
@@ -46,8 +56,8 @@
         </head>
     
 <ul class="nav nav-tabs">
-      <li class="active"><a data-toggle="tab" href="#add">Add</a></li>
-      <li><a data-toggle="tab" href="#edit">Edit</a></li>
+      <li class="<?= isset($id) ? "" : "active" ?>"><a data-toggle="tab" href="#add">Add</a></li>
+      <li class="<?= isset($id) ? "active" : "" ?>"><a data-toggle="tab" href="#curToEdit">Edit</a></li>
       <li><a data-toggle="tab" href="#delete">Delete</a></li>
       
 </ul>
@@ -78,26 +88,41 @@
         </form>
       
         
+       <div id="curToEdit" class="tab-pane fade <?= isset($id) ? "in active" : "" ?>">
        
-       
-        <form action="" method='post' id="edit" class="tab-pane fade">
-            <select name="menu_to_edit">
+        <form action="" method='post'>
+            <select  name="menu_to_edit">
                <option selected>choose the menu</option>
                <?php foreach($menu as $m): ?>
                 <option value="<?= $m[0]?>"> <?=$m[1]?></option>
-               
+                
                <?php endforeach;?>
-          
-              
               
             </select>
-              new name : <input type="text" name="newname" required>
-                new link : <input type="text" name="newlink" required>
+             <input type="hidden" name="action" value="curToEdit">
+            <input type="submit">
+            
+        </form>
+        <?php if(isset($id)): ?>
+        <form action="" method='post' id="edit">
+                           new name : 
+
+               <input type="text" name="newname" required value="<?= $curr['name']?>">
+                new link : 
+                <input type="text" name="newlink" required value="<?=$curr['link']?>">
             
              <input type="hidden" name="action" value="edit">
+             <input type="hidden" name="id" value="<?=$curr['id']?>">
+             
             <input type="submit">
+            
+            <br>
+            
+            
+            
         </form>
-       
+         <?php $_POST['id'] = $id; echo "var_dump : "; var_dump($_POST['id']); endif;  ?>
+       </div>
     
       
             
