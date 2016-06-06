@@ -8,19 +8,24 @@
     //CheckLogin("stas");
    require('pages.php');
 
-
-    $pageId = $_GET['id'];
-    $id = isset($_GET['id']?$_GET['id']:0);
+    
+    $pageid = isset($_GET['id'])?$_GET['id']:0;
+    echo "pageid = $pageid" . "<br>";
+    $id = isset($_GET['id'])?$_GET['id']:0;
     $page = getPageById($id);
     $menu = getMenu();
 
 $isEst = false;
 
+ session_start();
 
-    if(CheckUser($_POST['username'], $_POST['password']) == true)
+    if(CheckUser(isset($_POST['username'])?$_POST['username']:null,
+                 isset($_POST['password'])?$_POST['password']:null) == true)
       {
         echo "zachlo!";
         $isEst = true;
+       
+        $_SESSION['isAutorized'] = 0;
         //header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
       }
     else
@@ -34,14 +39,14 @@ $isEst = false;
    if($isEst)
    {
        echo "Est Takoy";
-       session_start();
+      //session_start();
        if($_SESSION['isAutorized'] != 1)
        {
            include "login.php";
            die();
        }
-//          header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
-
+//header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
+       
    }
     else
     {
@@ -102,13 +107,15 @@ $isEst = false;
              </h1>
               <div id = "menu">
             <?php
+            echo "menu : " . var_dump($menu);
+           
                 foreach($menu as $m):?>
             <li>
-                <a href="/index.php?id="<?=$m['id']?>>
-                <?=$m['name']?> 
+                <a href="/index.php?id="<?  if($menu != null) echo $m['id']?>>
+                <? if($menu != null) echo $m['name']?> 
                 </a>
             </li>
-            <?php endforeach: ?>
+            <?php endforeach; ?>
             </div>
             <div id='content'>
                 <?php
@@ -119,7 +126,7 @@ $isEst = false;
                     else:
                         include"pages/" . $page['link'];
                     
-                    endif:
+                    endif;
                     ?>
             </div> 
          </div>

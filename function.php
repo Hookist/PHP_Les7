@@ -72,6 +72,18 @@ VALUES ('$username', '$password');");
          }
     }
 
+    function getPosts()
+    {
+        $res = doQuery("SELECT * FROM `post`");
+        if($res != false)
+        {
+            echo "zachlo v getPosts";
+            $arr = mysqli_fetch_all($res, MYSQLI_NUM);
+            return $arr;
+        }
+        
+    }
+    
     function getPageById($id)
     {
          $res = doQuery("SELECT * FROM `pages` WHERE `id` = '$id';");

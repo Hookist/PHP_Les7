@@ -1,19 +1,37 @@
 <?php
 
+ //include("function.php");
+
  $isLogin = false;
  $isPassword = false;
-        if(CheckLogin($_POST['username']) == true)
+        if(CheckLogin(isset($_POST['username'])?$_POST['username']:null) == true)
         {
                echo "We already have that username, please write another";
         }
         else
        {
-          $isLogin = true;
+                if(strlen(isset($_POST['username'])?$_POST['username']:null) > 4)
+                {
+                    echo "Username must has more then 4 symbols";
+                }
+                else
+                {
+                    $isLogin = true;
+                }
        }
-        if(strcmp($_POST['password'], $_POST['repassword']) == 0)
+
+
+        if(strcmp(isset($_POST['password'])?$_POST['password']:null,
+                  isset($_POST['repassword'])?$_POST['repassword']:null) == 0)
         {
-             $isPassword = true;
+            
             echo "Passwords are the same"; 
+             if(strlen(isset($_POST['password'])?$_POST['password']:null) > 4)
+                {
+                    echo "Password must has more then 4 symbols";
+                  $isPassword = true;
+                }
+            
         }
         else
         {
