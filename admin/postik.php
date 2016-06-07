@@ -1,14 +1,26 @@
 <?php
- include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Les7/function.php");
-    session_start();
 
+ include($_SERVER['DOCUMENT_ROOT'] . "/PHP_Les7/function.php");
+//   header("content-type: image/jpeg");
+   $remoteImage = $_SERVER['DOCUMENT_ROOT'] . "/PHP_Les7/images/MXy17PsqleQ.jpg";
+   $imginfo = getimagesize($remoteImage);
+   //header("Content-type: {$imginfo['mime']}");
+   //readfile($remoteImage);
+    session_start();
+    
 $posts = getPosts();
     
   if($_SERVER['REQUEST_METHOD'] == 'POST')
   {
       switch($_POST['action'])
       {
-          
+          case "add" :
+            //var_dump($_POST['img']);
+            var_dump($_SESSION);
+             //readfile($remoteImage);
+             
+              
+              break;
       }
       
   }
@@ -36,13 +48,21 @@ $posts = getPosts();
         <div class="tab-content">
        
         
-         <form action="" method='post' id="add" class="tab-pane fade in active">
+         <form action="" method='post' id="add" class="tab-pane fade in active" enctype="multipart/form-data" >
+            Post name : 
             <input type="text" name="postname" required>
+             <br>
+             Post text :
             <input type="text" name="posttext" required>
-            <input type="file" name="post"
+            <input type="hidden" name="what" value="what1">
+            <input type="file" name="img" src="" accept="image/jpeg,image/png,image/gif">
+            
+          
+             
             <input type="hidden" name="action" value="add">
             <input type="submit">
         </form>
+        </div>
         
 </html>
 

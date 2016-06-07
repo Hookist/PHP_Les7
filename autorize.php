@@ -4,7 +4,7 @@
   //$_POST['password'] = $curUser['password'];
 
  include("function.php");
-
+  session_start();
     //CheckLogin("stas");
    require('pages.php');
 
@@ -12,6 +12,7 @@
     $pageid = isset($_GET['id'])?$_GET['id']:0;
     echo "pageid = $pageid" . "<br>";
     $id = isset($_GET['id'])?$_GET['id']:0;
+   
     $page = getPageById($id);
     $menu = getMenu();
 
@@ -39,10 +40,26 @@ $isEst = false;
    if($isEst)
    {
        echo "Est Takoy";
+       echo "<br>";
+       echo $_POST['username'];
+       
+    $userIdArr =   getUserId(doQuery("SELECT `id` FROM `user` WHERE `UserName` = '" . $_POST['username'] . "'  LIMIT 1"));
+       var_dump($userIdArr);
+       foreach($userIdArr as $userId)
+       {
+           echo $userId[0];
+            $_SESSION['userId'] = $userId[0];
+       }
+ 
+        //alert("");
+      echo '<script type="text/javascript"> window.location = "http://localhost/PHP_Les7/admin/postik.php" </script>';
+      
+       header();
       //session_start();
        if($_SESSION['isAutorized'] != 1)
        {
            include "login.php";
+              
            die();
        }
 //header("Location: http://127.0.0.1:8080/PHP_Les7/mainform.php");
@@ -107,6 +124,7 @@ $isEst = false;
              </h1>
               <div id = "menu">
             <?php
+         
             echo "menu : " . var_dump($menu);
            
                 foreach($menu as $m):?>

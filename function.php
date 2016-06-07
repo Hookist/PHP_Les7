@@ -84,6 +84,17 @@ VALUES ('$username', '$password');");
         
     }
     
+    function getUserId($res)
+    {
+        if($res != false)
+        {
+            echo "zachlo v getUserId";
+            $arr = mysqli_fetch_all($res, MYSQLI_NUM);
+            return $arr;
+        }
+    }
+    
+    
     function getPageById($id)
     {
          $res = doQuery("SELECT * FROM `pages` WHERE `id` = '$id';");
@@ -133,6 +144,10 @@ VALUES ('$username', '$password');");
          return doQuery(" ");
     }
 
+    function uploadImage()
+    {
+    
+    }
     
 
     
