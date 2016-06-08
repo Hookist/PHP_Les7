@@ -135,7 +135,7 @@ VALUES ('$username', '$password');");
 
     function addPost($post)
     {
-        return doQuery("INSERT INTO `post` (`PostName`, `User_id`) 
+        return doQuery("INSERT INTO `post` (`PostName`, `PostText`, `ImageLink`, `User_id`) 
                         VALUES('". $post['postName'] ."', '". $post['userId'] ."')");
     }  
 

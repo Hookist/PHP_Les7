@@ -15,7 +15,10 @@ $posts = getPosts();
       switch($_POST['action'])
       {
           case "add" :
-            //var_dump($_POST['img']);
+            var_dump($_FILES);
+           echo "<br>";
+            var_dump($_FILES['img']['tmp_name']);
+            move_uploaded_file($_FILES['img']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "/PHP_Les7/images/".$_FILES['img']['name']);
             var_dump($_SESSION);
              //readfile($remoteImage);
              
@@ -30,11 +33,20 @@ $posts = getPosts();
 
     <html>
         <head>
+            <meta charset="UTF-8"/>
             <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+          <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        <link href="mystylesheet.css" rel="stylesheet">
+              <link href="mystylesheet.css" rel="stylesheet">
+              
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
             
+            
+        <script src="/PHP_Les7/js/fileinput.min.js" type="text/javascript"></script>
+        <link href="/PHP_Les7/css/fileinput.css" rel="stylesheet">
+        
+        <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed|Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+ 
 
         </head>
         
@@ -55,7 +67,10 @@ $posts = getPosts();
              Post text :
             <input type="text" name="posttext" required>
             <input type="hidden" name="what" value="what1">
-            <input type="file" name="img" src="" accept="image/jpeg,image/png,image/gif">
+            <input id="file-fr" name="file-fr[]" type="file" multiple>
+
+
+</script>
             
           
              
@@ -63,7 +78,9 @@ $posts = getPosts();
             <input type="submit">
         </form>
         </div>
-        
+        	<script>
+   
+	</script>
 </html>
 
 //textarea
